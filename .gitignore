@@ -1,0 +1,15 @@
+# Data directories
+appdata/
+data/
+config/
+*/config/
+*/data/
+*/appdata/
+
+# Secrets
+.env
+*.key
+*.pem
+
+# Logs
+*.log

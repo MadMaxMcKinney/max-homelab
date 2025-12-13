@@ -1,0 +1,9 @@
+services:
+    excalidraw:
+        container_name: excalidraw
+        image: excalidraw/excalidraw:latest
+        restart: unless-stopped
+        networks:
+            - newt_network
+        ports:
+            - "8080:80"
