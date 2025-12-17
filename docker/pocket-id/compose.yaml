@@ -13,3 +13,7 @@ services:
             - TRUST_PROXY=${TRUST_PROXY}
         networks:
             - newt_network
+
+networks:
+    newt_network:
+        external: true
