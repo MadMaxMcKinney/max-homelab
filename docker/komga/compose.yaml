@@ -5,10 +5,10 @@ services:
         container_name: komga
         volumes:
             - type: bind
-              source: ./config
+              source: ${KOMGA_CONFIG_PATH}
               target: /config
             - type: bind
-              source: /path/to/data
+              source: ${KOMGA_LIBRARY_PATH}
               target: /data
         ports:
             - 25600:25600
