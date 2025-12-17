@@ -3,6 +3,7 @@ services:
     komga:
         image: gotson/komga
         container_name: komga
+        user: "1000:1000"
         volumes:
             - type: bind
               source: ${KOMGA_CONFIG_PATH}
