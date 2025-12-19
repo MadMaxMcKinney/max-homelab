@@ -5,5 +5,3 @@ services:
         restart: unless-stopped
         networks:
             - newt_network
-        ports:
-            - "8080:80"
