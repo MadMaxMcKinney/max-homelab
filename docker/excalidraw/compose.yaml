@@ -5,3 +5,7 @@ services:
         restart: unless-stopped
         networks:
             - newt_network
+
+networks:
+    newt_network:
+        external: true
