@@ -1,0 +1,16 @@
+services:
+    kapowarr:
+        container_name: kapowarr
+        image: mrcas/kapowarr:latest
+        volumes:
+            - "${KAPOWARR_DB_PATH}:/app/db"
+            - "${KAPOWARR_TEMP_DOWNLOADS_PATH}:/app/temp_downloads"
+            - "${KAPOWARR_ROOT_FOLDER_PATH}:/comics"
+        ports:
+            - 5656:5656
+        networks:
+            - newt_network
+
+networks:
+    newt_network:
+        external: true

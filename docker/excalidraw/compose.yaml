@@ -1,0 +1,11 @@
+services:
+    excalidraw:
+        container_name: excalidraw
+        image: excalidraw/excalidraw:latest
+        restart: unless-stopped
+        networks:
+            - newt_network
+
+networks:
+    newt_network:
+        external: true

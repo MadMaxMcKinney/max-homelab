@@ -1,0 +1,19 @@
+services:
+    pocket-id:
+        container_name: pocket-id
+        image: ghcr.io/pocket-id/pocket-id:v1
+        restart: unless-stopped
+        ports:
+            - 1411:1411
+        volumes:
+            - "./data:/app/data"
+        environment:
+            - ENCRYPTION_KEY=${ENCRYPTION_KEY}
+            - APP_URL=${APP_URL}
+            - TRUST_PROXY=${TRUST_PROXY}
+        networks:
+            - newt_network
+
+networks:
+    newt_network:
+        external: true

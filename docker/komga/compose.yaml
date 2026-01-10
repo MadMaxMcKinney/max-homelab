@@ -1,0 +1,25 @@
+version: "3.3"
+services:
+    komga:
+        image: gotson/komga
+        container_name: komga
+        user: "1000:1000"
+        volumes:
+            - type: bind
+              source: ${KOMGA_CONFIG_PATH}
+              target: /config
+            - type: bind
+              source: ${KOMGA_LIBRARY_PATH}
+              target: /data
+        ports:
+            - 25600:25600
+        environment:
+            - TZ=America/Chicago
+            - JAVA_TOOL_OPTIONS=-Xmx4g
+        restart: unless-stopped
+        networks:
+            - newt_network
+
+networks:
+    newt_network:
+        external: true

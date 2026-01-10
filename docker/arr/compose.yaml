@@ -1,0 +1,78 @@
+services:
+    # Radarr Service
+    radarr:
+        container_name: radarr
+        image: ghcr.io/hotio/radarr
+        restart: unless-stopped
+        ports:
+            - "7878:7878"
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - UMASK=002
+            - TZ=Etc/UTC
+        volumes:
+            - ${RADARR_CONFIG_PATH}:/config
+            - ${RADARR_DATA_PATH}:/data
+        networks:
+            - newt_network
+
+    # Gluetun VPN Service
+    gluetun:
+        image: qmcgaw/gluetun
+        container_name: gluetun
+        restart: unless-stopped
+        cap_add:
+            - NET_ADMIN
+        devices:
+            - /dev/net/tun:/dev/net/tun
+        ports:
+            - 8080:8080
+            - 6881:6881
+            - 6881:6881/udp
+        volumes:
+            - ./gluetun:/gluetun
+        environment:
+            - VPN_SERVICE_PROVIDER=private internet access
+            - OPENVPN_USER=${PIA_USERNAME}
+            - OPENVPN_PASSWORD=${PIA_PASSWORD}
+            - SERVER_REGIONS=Netherlands
+        networks:
+            - newt_network
+
+    # Prowlarr Service
+    prowlarr:
+        container_name: prowlarr
+        image: ghcr.io/hotio/prowlarr
+        restart: unless-stopped
+        ports:
+            - "9696:9696"
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - UMASK=002
+            - TZ=Etc/UTC
+        volumes:
+            - ${PROWLARR_CONFIG_PATH}:/config
+        networks:
+            - newt_network
+
+    # qBittorrent Service
+    qbittorrent:
+        image: lscr.io/linuxserver/qbittorrent:latest
+        container_name: qbittorrent
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Etc/UTC
+            - WEBUI_PORT=8080
+            - TORRENTING_PORT=6881
+        volumes:
+            - ${QBITTORRENT_CONFIG_PATH}:/config
+            - ${QBITTORRENT_DOWNLOAD_PATH}:/data/downloads
+        restart: unless-stopped
+        network_mode: "service:gluetun"
+
+networks:
+    newt_network:
+        external: true

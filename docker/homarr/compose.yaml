@@ -1,0 +1,18 @@
+services:
+    homarr:
+        container_name: homarr
+        image: ghcr.io/homarr-labs/homarr:latest
+        restart: unless-stopped
+        networks:
+            - newt_network
+        volumes:
+            # - /var/run/docker.sock:/var/run/docker.sock # Optional, only if you want docker integration
+            - ${HOMARR_DATA_PATH}:/appdata
+        environment:
+            - SECRET_ENCRYPTION_KEY=${HOMARR_SECRET_ENCRYPTION_KEY}
+        ports:
+            - "7575:7575"
+
+networks:
+    newt_network:
+        external: true

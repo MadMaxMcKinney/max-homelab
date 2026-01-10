@@ -1,0 +1,15 @@
+services:
+    silverbullet:
+        container_name: silverbullet
+        image: ghcr.io/silverbulletmd/silverbullet
+        restart: unless-stopped
+        ports:
+            - 7676:3000
+        volumes:
+            - ${DATA_PATH}:/space
+        networks:
+            - newt_network
+
+networks:
+    newt_network:
+        external: true
