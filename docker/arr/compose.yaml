@@ -31,6 +31,8 @@ services:
         volumes:
             - ${SONARR_CONFIG_PATH}:/config
             - ${SONARR_DATA_PATH}:/data
+        networks:
+            - newt_network
 
     # Gluetun VPN Service
     gluetun:
