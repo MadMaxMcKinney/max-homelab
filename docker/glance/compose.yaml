@@ -5,6 +5,7 @@ services:
         restart: unless-stopped
         volumes:
             - ${GLANCE_CONFIG_PATH}:/app/config
+            - /var/run/docker.sock:/var/run/docker.sock
         ports:
             - 9191:8080
         networks:
