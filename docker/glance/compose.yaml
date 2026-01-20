@@ -1,0 +1,15 @@
+services:
+    glance:
+        container_name: glance
+        image: glanceapp/glance
+        restart: unless-stopped
+        volumes:
+            - ${GLANCE_CONFIG_PATH}:/app/config
+        ports:
+            - 8080:8080
+        networks:
+            - newt_network
+
+networks:
+    newt_network:
+        external: true
