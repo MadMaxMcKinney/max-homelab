@@ -91,6 +91,22 @@ services:
         restart: unless-stopped
         network_mode: "service:gluetun"
 
+    # Jellyseerr
+    jellyseerr:
+        image: ghcr.io/fallenbagel/jellyseerr:latest
+        init: true
+        container_name: jellyseerr
+        environment:
+            - LOG_LEVEL=debug
+            - TZ=America/Chicago
+        ports:
+            - 5055:5055
+        volumes:
+            - ${JELLYSEERR_CONFIG_PATH}:/app/config
+        restart: unless-stopped
+        networks:
+            - newt_network
+
 networks:
     newt_network:
         external: true
