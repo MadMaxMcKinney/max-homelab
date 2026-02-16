@@ -97,6 +97,8 @@ services:
         init: true
         container_name: seerr
         environment:
+            - PUID=1000
+            - PGID=1000
             - TZ=America/Chicago
         ports:
             - 5055:5055
