@@ -102,7 +102,7 @@ services:
         ports:
             - 5055:5055
         volumes:
-            - ${seerr_CONFIG_PATH}:/app/config
+            - ${SEERR_CONFIG_PATH}:/app/config
         restart: unless-stopped
         networks:
             - newt_network
