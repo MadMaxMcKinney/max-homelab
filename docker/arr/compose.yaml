@@ -97,7 +97,6 @@ services:
         init: true
         container_name: seerr
         environment:
-            - LOG_LEVEL=debug
             - TZ=America/Chicago
         ports:
             - 5055:5055
