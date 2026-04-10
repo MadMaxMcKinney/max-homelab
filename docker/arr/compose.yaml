@@ -55,6 +55,8 @@ services:
             - OPENVPN_USER=${PIA_USERNAME}
             - OPENVPN_PASSWORD=${PIA_PASSWORD}
             - SERVER_REGIONS=Netherlands
+            - DOT=off
+            - DNS_ADDRESS=8.8.8.8
         networks:
             - newt_network
 
