@@ -7,7 +7,7 @@ services:
             - ${KEYS_PATH}:/root/.aspnet/DataProtection-Keys
         # expose port and/or use serving via traefik
         ports:
-            - 8080:8080
+            - 5556:8080
         networks:
             - newt_network
 
