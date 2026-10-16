@@ -10,6 +10,16 @@ services:
             - ${HOMARR_DATA_PATH}:/appdata
         environment:
             - SECRET_ENCRYPTION_KEY=${HOMARR_SECRET_ENCRYPTION_KEY}
+            - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+            - AUTH_PROVIDERS=oidc
+            - AUTH_OIDC_CLIENT_ID=${AUTH_OIDC_CLIENT_ID}
+            - AUTH_OIDC_CLIENT_SECRET=${AUTH_OIDC_CLIENT_SECRET}
+            - AUTH_OIDC_ISSUER=${AUTH_OIDC_ISSUER}
+            - AUTH_OIDC_CLIENT_NAME="Pocket ID"
+            - AUTH_OIDC_SCOPE_OVERWRITE=openid email profile groups
+            - AUTH_OIDC_GROUPS_ATTRIBUTE=groups
+            - AUTH_LOGOUT_REDIRECT_URL=${AUTH_LOGOUT_REDIRECT_URL}
+            - AUTH_OIDC_AUTO_LOGIN=true
         ports:
             - "7575:7575"
 
