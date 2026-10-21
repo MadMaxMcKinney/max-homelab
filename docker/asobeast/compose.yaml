@@ -2,6 +2,7 @@ name: asobeast
 
 services:
     postgres:
+        container_name: asobeast-postgres
         image: postgres:18-alpine
         restart: unless-stopped
         deploy:
@@ -28,6 +29,7 @@ services:
         networks:
             - backend
     redis:
+        container_name: asobeast-redis
         image: redis:8-alpine
         restart: unless-stopped
         command: ["redis-server", "--maxmemory", "192mb", "--maxmemory-policy", "noeviction"]
@@ -51,6 +53,7 @@ services:
         networks:
             - backend
     api:
+        container_name: asobeast-api
         image: ghcr.io/${ASOBEAST_IMAGE_OWNER:-asobeast}/asobeast-api:${ASOBEAST_IMAGE_TAG:-1.12.0} # x-release-please-version
         restart: unless-stopped
         stop_grace_period: 90s
@@ -67,8 +70,8 @@ services:
             - path: apps/api/.env
               required: false
         environment:
-            DATABASE_URL: postgresql://asobeast:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@postgres:5432/asobeast
-            REDIS_HOST: redis
+            DATABASE_URL: postgresql://asobeast:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@asobeast-postgres:5432/asobeast
+            REDIS_HOST: asobeast-redis
             REDIS_PORT: 6379
             PORT: 4000
             DEFAULT_COUNTRY: us
@@ -92,14 +95,11 @@ services:
             retries: 12
             start_period: 30s
         networks:
-            frontend:
-                aliases:
-                    - asobeast-api
-            backend:
-            newt_network:
-                aliases:
-                    - asobeast-api
+            - frontend
+            - backend
+            - newt_network
     web:
+        container_name: asobeast
         image: ghcr.io/${ASOBEAST_IMAGE_OWNER:-asobeast}/asobeast-web:${ASOBEAST_IMAGE_TAG:-1.12.0} # x-release-please-version
         restart: unless-stopped
         deploy:
@@ -131,10 +131,8 @@ services:
             retries: 6
             start_period: 20s
         networks:
-            frontend:
-            newt_network:
-                aliases:
-                    - asobeast
+            - frontend
+            - newt_network
 volumes:
     pgdata:
     redisdata:
