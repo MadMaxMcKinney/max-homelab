@@ -77,6 +77,19 @@ services:
         networks:
             - newt_network
 
+    # FlareSolverr Service
+    flaresolverr:
+        image: ghcr.io/flaresolverr/flaresolverr:latest
+        container_name: flaresolverr
+        restart: unless-stopped
+        ports:
+            - "8191:8191"
+        environment:
+            - LOG_LEVEL=info
+            - TZ=Etc/UTC
+        networks:
+            - newt_network
+
     # qBittorrent Service
     qbittorrent:
         image: lscr.io/linuxserver/qbittorrent:latest
