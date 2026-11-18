@@ -8,11 +8,13 @@ services:
             - portainer_data:/data
         ports:
             - 9443:9443
+        networks:
+            - newt_network
 
 volumes:
     portainer_data:
         name: portainer_data
 
 networks:
-    default:
-        name: portainer_network
+    newt_network:
+        external: true
